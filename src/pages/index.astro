@@ -1,11 +1,175 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Carrito from '../components/Carrito.astro';
+import Footer from '../components/Footer.astro';
+import { productos } from '../data/productos.js';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VV TELIER | Bolsos Transparentes & Cuero</title>
+</head>
+<body class="bg-white text-[#181818] antialiased">
+
+  <Navbar />
+  <Hero />
+
+  <main id="catalogo" class="max-w-7xl mx-auto py-14 px-[5%]">
+    <div class="flex flex-wrap justify-between items-center gap-4 mb-8">
+      <h2 class="font-serif text-2xl md:text-3xl font-normal tracking-wide">Catálogo de Productos</h2>
+      <select onchange="ordenarProductos(this.value)" class="px-3 py-2 border border-[#e5e0d8] bg-white text-sm text-[#181818]">
+        <option value="default">Orden predeterminado</option>
+        <option value="asc">Precio: menor a mayor</option>
+        <option value="desc">Precio: mayor a menor</option>
+      </select>
+    </div>
+
+    <div id="grid-productos" class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8"></div>
+  </main>
+
+  <Footer />
+  <Carrito />
+
+  <script is:inline define:vars={{ productos }}>
+    let carrito = JSON.parse(localStorage.getItem("vvtelier_carrito")) || [];
+    let categoriaActual = "Todos";
+    let ordenActual = "default";
+
+    function renderizarCatalogo() {
+      const contenedor = document.getElementById("grid-productos");
+      if (!contenedor) return;
+
+      let lista = categoriaActual === "Todos"
+        ? [...productos]
+        : productos.filter(p => p.categoria.toLowerCase() === categoriaActual.toLowerCase());
+
+      if (ordenActual === "asc") lista.sort((a, b) => a.precio - b.precio);
+      if (ordenActual === "desc") lista.sort((a, b) => b.precio - a.precio);
+
+      contenedor.innerHTML = lista.map(item => `
+        <article class="bg-white border border-[#e5e0d8] rounded-sm overflow-hidden flex flex-col justify-between relative hover:-translate-y-1 hover:shadow-lg transition duration-300">
+          ${item.agotado ? '<span class="absolute top-3 left-3 bg-[#181818] text-white text-xs px-2.5 py-1 z-10">Agotado</span>' : ''}
+          <img src="${item.img}" alt="${item.nombre}" onclick="abrirVistaRapida(${item.id})" class="w-full h-52 md:h-76 object-contain p-4 bg-white cursor-pointer hover:scale-105 transition duration-500" />
+          <div class="p-4 md:p-5 text-center bg-white z-10">
+            <div class="text-xs text-[#6e6a66] uppercase">${item.categoria}</div>
+            <h3 class="text-sm md:text-base font-medium my-1.5">${item.nombre}</h3>
+            <div class="text-base font-bold text-[#7c4d2b] mb-4">$ ${item.precio.toLocaleString('es-CO')}</div>
+            <div class="flex flex-col gap-2">
+              <button ${item.agotado ? 'disabled' : `onclick="agregarAlCarrito(${item.id})"`} class="w-full py-2.5 px-3 text-xs font-semibold tracking-wider uppercase transition cursor-pointer ${item.agotado ? 'border border-gray-300 text-gray-400 cursor-not-allowed' : 'bg-[#181818] hover:bg-[#7c4d2b] text-white'}">
+                ${item.agotado ? 'Agotado' : 'Añadir al carrito'}
+              </button>
+              <button onclick="abrirVistaRapida(${item.id})" class="w-full py-2 border border-[#e5e0d8] hover:border-[#7c4d2b] text-xs text-[#6e6a66] transition cursor-pointer">
+                👁 Vista rápida
+              </button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    window.filtrarCategoria = (cat) => { categoriaActual = cat; renderizarCatalogo(); };
+    window.ordenarProductos = (ord) => { ordenActual = ord; renderizarCatalogo(); };
+
+    window.abrirVistaRapida = (id) => {
+      const prod = productos.find(p => p.id === id);
+      if (!prod) return;
+      document.getElementById("modal-vista-rapida")?.remove();
+
+      const modalHTML = `
+        <div id="modal-vista-rapida" onclick="if(event.target === this) this.remove()" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-5">
+          <div class="bg-white max-w-2xl w-full rounded-sm overflow-hidden grid grid-cols-1 md:grid-cols-2 relative shadow-2xl">
+            <button onclick="document.getElementById('modal-vista-rapida').remove()" class="absolute top-3 right-4 text-2xl cursor-pointer">✕</button>
+            <div class="p-6 flex items-center justify-center bg-white">
+              <img src="${prod.img}" alt="${prod.nombre}" class="max-h-72 w-auto object-contain" />
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-center">
+              <small class="text-[#6e6a66] uppercase">${prod.categoria}</small>
+              <h2 class="font-serif text-2xl my-1.5">${prod.nombre}</h2>
+              <p class="text-xl font-bold text-[#7c4d2b] mb-3">$ ${prod.precio.toLocaleString('es-CO')}</p>
+              <p class="text-sm text-gray-700 mb-2.5">${prod.descripcion}</p>
+              <p class="text-xs text-gray-500 mb-5"><strong>Medidas:</strong> ${prod.medidas}</p>
+              <button ${prod.agotado ? 'disabled' : `onclick="agregarAlCarrito(${prod.id}); document.getElementById('modal-vista-rapida').remove();"`} class="w-full py-3 bg-[#181818] hover:bg-[#7c4d2b] text-white text-xs font-semibold uppercase tracking-wider cursor-pointer">
+                ${prod.agotado ? 'Agotado' : 'Añadir al carrito'}
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML("beforeend", modalHTML);
+    };
+
+    window.toggleCarrito = () => {
+      const drawer = document.getElementById("cart-drawer");
+      const overlay = document.getElementById("cart-overlay");
+      drawer.classList.toggle("-right-full");
+      drawer.classList.toggle("right-0");
+      overlay.classList.toggle("hidden");
+    };
+
+    window.agregarAlCarrito = (id) => {
+      const producto = productos.find(p => p.id === id);
+      if (!producto || producto.agotado) return;
+      const existente = carrito.find(item => item.id === id);
+      existente ? existente.cantidad++ : carrito.push({ ...producto, cantidad: 1 });
+      localStorage.setItem("vvtelier_carrito", JSON.stringify(carrito));
+      actualizarVistaCarrito();
+      if (document.getElementById("cart-drawer").classList.contains("-right-full")) toggleCarrito();
+    };
+
+    window.cambiarCantidad = (id, delta) => {
+      const item = carrito.find(p => p.id === id);
+      if (!item) return;
+      item.cantidad += delta;
+      if (item.cantidad <= 0) carrito = carrito.filter(p => p.id !== id);
+      localStorage.setItem("vvtelier_carrito", JSON.stringify(carrito));
+      actualizarVistaCarrito();
+    };
+
+    function actualizarVistaCarrito() {
+      const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+      const totalPrecio = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+      document.getElementById("cart-count").innerText = totalItems;
+      document.getElementById("cart-total-price").innerText = `$ ${totalPrecio.toLocaleString('es-CO')}`;
+
+      const container = document.getElementById("cart-items-container");
+      if (carrito.length === 0) {
+        container.innerHTML = '<p class="text-[#6e6a66] text-center mt-10">Tu carrito está vacío.</p>';
+        return;
+      }
+
+      container.innerHTML = carrito.map(item => `
+        <div class="flex justify-between items-center pb-3.5 mb-3.5 border-b border-[#e5e0d8] gap-2.5">
+          <div>
+            <h4 class="text-sm font-medium mb-1">${item.nombre}</h4>
+            <span class="text-sm text-[#7c4d2b] font-semibold">$ ${(item.precio * item.cantidad).toLocaleString('es-CO')}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="cambiarCantidad(${item.id}, -1)" class="w-7 h-7 border border-[#e5e0d8] font-bold cursor-pointer">-</button>
+            <span class="text-sm">${item.cantidad}</span>
+            <button onclick="cambiarCantidad(${item.id}, 1)" class="w-7 h-7 border border-[#e5e0d8] font-bold cursor-pointer">+</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    window.enviarPedidoWhatsApp = () => {
+      if (carrito.length === 0) return alert("Agrega al menos un bolso al carrito.");
+      let mensaje = "Hola VV TELIER, quiero realizar el siguiente pedido:\n\n";
+      carrito.forEach(item => {
+        mensaje += `• ${item.cantidad}x ${item.nombre} - $${(item.precio * item.cantidad).toLocaleString('es-CO')}\n`;
+      });
+      const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+      mensaje += `\n*Total a pagar: $${total.toLocaleString('es-CO')}*`;
+      window.open(`https://whatsapp.com{encodeURIComponent(mensaje)}`, "_blank", "noopener,noreferrer");
+    };
+
+    renderizarCatalogo();
+    actualizarVistaCarrito();
+  </script>
+</body>
+</html>
