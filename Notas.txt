@@ -1,0 +1,20 @@
+
+Herramietas de uso gratuitas
+
+Herramientas para front end
+- Astro
+- Tailwind CSS
+- React
+
+
+UI/UX
+-Daisy UI https://daisyui.com/
+-paper shaders https://shaders.paper.design/
+-the component gallery https://component.gallery/
+-React icon https://react-icons.github.io/react-icons/icons/bs/
+
+Manejo de imagenens en SVG
+
+- Better SVG
+
+Recomendacion de herramientas para diseño
