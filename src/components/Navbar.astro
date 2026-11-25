@@ -1,0 +1,23 @@
+<div class="bg-[#181818] text-white text-center py-2 px-4 text-xs tracking-widest uppercase font-medium">
+  Colección Bolsos Transparentes & Acabados en Cuero | Envíos a todo el país
+</div>
+
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#e5e0d8] px-[6%] py-4 flex flex-col md:flex-row justify-between items-center gap-3">
+  <a href="#" class="inline-flex items-center gap-2 font-serif text-2xl font-bold tracking-[2px] text-[#181818]">
+    <img src="public/images/VV TELIER.jpg" alt="Logo VV Telier" class="h-8 w-auto object-contain" />
+    <span>VV TELIER</span>
+  </a>
+
+  <nav>
+    <ul class="flex flex-wrap justify-center gap-5 md:gap-8 text-xs font-semibold tracking-wider uppercase text-[#181818]">
+      <li><a href="#catalogo" onclick="filtrarCategoria('Todos')" class="hover:text-[#7c4d2b] transition">Todos</a></li>
+      <li><a href="#catalogo" onclick="filtrarCategoria('Morral')" class="hover:text-[#7c4d2b] transition">Morrales</a></li>
+      <li><a href="#catalogo" onclick="filtrarCategoria('MiniBag')" class="hover:text-[#7c4d2b] transition">MiniBags</a></li>
+      <li><a href="#contacto" class="hover:text-[#7c4d2b] transition">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <button onclick="toggleCarrito()" class="border border-[#e5e0d8] hover:border-[#7c4d2b] hover:text-[#7c4d2b] px-4 py-2 rounded-sm text-sm font-semibold text-[#181818] transition cursor-pointer">
+    🛒 Carrito (<strong id="cart-count">0</strong>)
+  </button>
+</header>
