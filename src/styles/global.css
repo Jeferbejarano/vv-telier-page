@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+/* 1. Registrar la fuente Florentia */
+@font-face {
+  font-family: 'Florentia';
+  src: url('/fonts/florentia-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2. Sobrescribir las fuentes de Tailwind v4 para usar Florentia en todo */
+@theme {
+  --font-sans: 'Florentia', sans-serif;
+  --font-serif: 'Florentia', serif;
+}
+
+/* 3. Forzar su uso en todo el documento */
+@layer base {
+  html, body {
+    font-family: 'Florentia', sans-serif;
+  }
+}
