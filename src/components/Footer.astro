@@ -1,0 +1,107 @@
+---
+// src/components/Footer.astro
+const anioActual = new Date().getFullYear();
+---
+
+<footer id="contacto" class="bg-[#f3efe9] border-t border-[#e5e0d8] text-[#181818]">
+  <!-- Bloque de Cierre Comercial (Llamado a la acción) -->
+  <div class="border-b border-[#e5e0d8]">
+    <div class="max-w-5xl mx-auto px-6 py-14 text-center">
+      <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#7c4d2b]">
+        ¿Buscas algo único?
+      </span>
+      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#181818] mt-2 mb-4 max-w-2xl mx-auto">
+        ¿Tienes una idea en mente o quieres un acabado especial?
+      </h2>
+      <p class="text-sm sm:text-base text-[#555555] max-w-xl mx-auto mb-8 leading-relaxed">
+        Escríbenos directo por WhatsApp y diseñamos tu pieza juntos. Envíos seguros a toda Colombia.
+      </p>
+      <a
+        href="https://wa.me"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block px-8 py-3.5 bg-[#181818] text-white text-xs font-semibold uppercase tracking-widest rounded hover:bg-[#7c4d2b] transition duration-300"
+      >
+        Hablar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- Contenido Principal del Pie de Página -->
+  <div class="max-w-6xl mx-auto px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+      <!-- Columna 1: Logo y Esencia -->
+      <div>
+        <a href="#" class="flex items-center gap-3 mb-4">
+          <img
+            src="/images/Logo_Marca_V.V_Telier_Header1.png"
+            alt="Logo Valvera Telier"
+            class="h-9 w-auto object-contain"
+          />
+          <span class="font-serif text-lg font-bold tracking-wider text-[#181818]">
+            VV TELIER
+          </span>
+        </a>
+        <p class="text-sm text-[#555555] leading-relaxed max-w-xs">
+          Valvera Telier · Diseño urbano resistente y personalizable hecho en Colombia.
+        </p>
+      </div>
+
+      <!-- Columna 2: Navegación Rápida -->
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-widest text-[#181818] mb-4">
+          Explorar
+        </h3>
+        <ul class="space-y-2.5 text-sm text-[#555555]">
+          <li>
+            <a href="#" class="hover:text-[#7c4d2b] transition">Inicio</a>
+          </li>
+          <li>
+            <a href="#catalogo" class="hover:text-[#7c4d2b] transition">Catálogo de Productos</a>
+          </li>
+          <li>
+            <a href="#nosotros" class="hover:text-[#7c4d2b] transition">Nuestra Esencia</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Atención y Redes -->
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-widest text-[#181818] mb-4">
+          Contacto Directo
+        </h3>
+        <ul class="space-y-2.5 text-sm text-[#555555]">
+          <li>
+            <a
+              href="https://wa.me"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-[#7c4d2b] transition"
+            >
+              WhatsApp · Atención Personalizada
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-[#7c4d2b] transition"
+            >
+              Instagram · @valveratelier
+            </a>
+          </li>
+          <li class="text-xs text-[#7c4d2b] font-medium pt-1">
+            Envíos nacionales · Hecho en Colombia 🇨🇴
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Barra Inferior de Derechos -->
+    <div class="mt-12 pt-6 border-t border-[#e5e0d8] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#666666]">
+      <p>© {anioActual} Valvera Telier. Todos los derechos reservados.</p>
+      <p>Diseño urbano con identidad propia.</p>
+    </div>
+  </div>
+</footer>
