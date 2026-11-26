@@ -1,0 +1,71 @@
+---
+// src/components/Hero.astro
+---
+
+<section class="relative bg-[#faf8f5] border-b border-[#e5e0d8] overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6 py-16 md:py-24 text-center">
+    <!-- Etiqueta superior (Badge) -->
+    <span class="inline-block bg-[#181818] text-white text-[11px] font-semibold tracking-[0.2em] uppercase px-4 py-1.5 rounded-full mb-6">
+      Nueva Colección Urbana · Hecho en Colombia
+    </span>
+
+    <!-- Título principal (H1) -->
+    <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-[#181818] tracking-tight leading-tight max-w-3xl mx-auto mb-6">
+      Lleva tu mundo a la vista, con estilo propio.
+    </h1>
+
+    <!-- Subtítulo -->
+    <p class="text-base md:text-lg text-[#555555] max-w-2xl mx-auto leading-relaxed mb-10">
+      Diseñamos morrales transparentes, tornasol y accesorios urbanos con materiales nacionales de alta resistencia. Personaliza tu pieza y destaca todos los días sin pagar de más.
+    </p>
+
+    <!-- Botones de acción (CTA) -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a
+        href="#catalogo"
+        class="w-full sm:w-auto px-8 py-3.5 bg-[#181818] text-white text-xs font-semibold uppercase tracking-widest rounded hover:bg-[#7c4d2b] transition duration-300"
+      >
+        Ver catálogo
+      </a>
+
+      <a
+        href="https://wa.me/573118691142?text=¡Hola!%20Quiero%20personalizar%20mi%20morrales%20VV%20Telier."
+        target="_blank"
+        rel="noopener noreferrer"
+        class="w-full sm:w-auto px-8 py-3.5 bg-white text-[#181818] border border-[#181818] text-xs font-semibold uppercase tracking-widest rounded hover:bg-[#f3efe9] transition duration-300"
+      >
+        Personalizar el mío
+      </a>
+    </div>
+
+    <!-- 3 Pilares de Propuesta de Valor -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 pt-12 border-t border-[#e5e0d8] text-left">
+      <div class="bg-white p-6 rounded-lg border border-[#e5e0d8]/80 shadow-xs">
+        <p class="text-xs font-bold uppercase tracking-wider text-[#7c4d2b] mb-2">
+          01 · Materiales Nacionales
+        </p>
+        <p class="text-sm text-[#4a4a4a] leading-relaxed">
+          Confección cuidada con insumos colombianos de alto calibre, costuras reforzadas e impermeables para aguantar tu ritmo diario.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg border border-[#e5e0d8]/80 shadow-xs">
+        <p class="text-xs font-bold uppercase tracking-wider text-[#7c4d2b] mb-2">
+          02 · Diseño Personalizable
+        </p>
+        <p class="text-sm text-[#4a4a4a] leading-relaxed">
+          No vendemos en serie sin alma: elige acabados, combinaciones y detalles para que tu bolso hable por ti.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg border border-[#e5e0d8]/80 shadow-xs">
+        <p class="text-xs font-bold uppercase tracking-wider text-[#7c4d2b] mb-2">
+          03 · Compra Directa y Segura
+        </p>
+        <p class="text-sm text-[#4a4a4a] leading-relaxed">
+          Arma tu carrito en segundos y finaliza tu pedido directo por WhatsApp con atención personalizada y envíos nacionales.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
